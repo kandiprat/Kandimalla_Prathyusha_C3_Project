@@ -8,6 +8,8 @@ public class Restaurant {
     private String location;
     public LocalTime openingTime;
     public LocalTime closingTime;
+
+    public LocalTime currentTime;
     private List<Item> menu = new ArrayList<Item>();
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
@@ -18,14 +20,14 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        return true;
+        LocalTime currentTime = getCurrentTime();
+        return currentTime.isAfter(openingTime) && currentTime.isBefore(closingTime);
         //DELETE ABOVE STATEMENT AND WRITE CODE HERE
     }
-
     public LocalTime getCurrentTime(){ return  LocalTime.now(); }
 
     public List<Item> getMenu() {
-        return null;
+        return menu;
         //DELETE ABOVE RETURN STATEMENT AND WRITE CODE HERE
     }
 
@@ -41,7 +43,7 @@ public class Restaurant {
         Item newItem = new Item(name,price);
         menu.add(newItem);
     }
-    
+
     public void removeFromMenu(String itemName) throws itemNotFoundException {
 
         Item itemToBeRemoved = findItemByName(itemName);
