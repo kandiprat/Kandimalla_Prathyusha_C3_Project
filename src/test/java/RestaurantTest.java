@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 
 
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -80,5 +82,19 @@ class RestaurantTest {
         Restaurant restaurantSpy = Mockito.spy(restaurant);
         when(restaurantSpy.getCurrentTime()).thenReturn(currentTime);
         return restaurantSpy.isRestaurantOpen();
+    }
+
+
+    // Below is the failing unit test case needed to validate get value of order items
+    // We are passing array of menu items as parameter for this method
+    //  returns total value of selected menu item prices as integer
+    @Test
+    public void get_total_order_value_of_selected_menu_items() {
+        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant.addToMenu("Vegetable lasagne", 269);
+        List<String> itemNames = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
+        int expectedOrderValue = 388;
+        int actualOrderValue = restaurant.getOrderValue(itemNames);
+        assertEquals(expectedOrderValue, actualOrderValue);
     }
 }
