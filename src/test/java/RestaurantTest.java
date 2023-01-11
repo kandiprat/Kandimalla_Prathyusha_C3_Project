@@ -89,7 +89,7 @@ class RestaurantTest {
     // We are passing array of menu items as parameter for this method
     //  returns total value of selected menu item prices as integer
     @Test
-    public void get_total_order_value_of_selected_menu_items() {
+    public void get_total_order_value_of_selected_menu_items_multiple_menu_items() {
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
         List<String> itemNames = Arrays.asList("Sweet corn soup", "Vegetable lasagne");
@@ -97,4 +97,22 @@ class RestaurantTest {
         int actualOrderValue = restaurant.getOrderValue(itemNames);
         assertEquals(expectedOrderValue, actualOrderValue);
     }
+    @Test
+    public void get_total_order_value_of_selected_menu_items_single_menu_item() {
+        restaurant.addToMenu("Sweet corn soup",119);
+        List<String> itemNames = Arrays.asList("Sweet corn soup");
+        int expectedOrderValue = 119;
+        int actualOrderValue = restaurant.getOrderValue(itemNames);
+        assertEquals(expectedOrderValue, actualOrderValue);
+    }
+
+    @Test
+    public void get_total_order_value_of_selected_menu_items_item_not_in_menu() {
+        restaurant.addToMenu("Sweet corn soup",119);
+        List<String> itemNames = Arrays.asList("Sweet corn soup", "itemNotInMenu");
+        int expectedOrderValue = 119;
+        int actualOrderValue = restaurant.getOrderValue(itemNames);
+        assertEquals(expectedOrderValue, actualOrderValue);
+    }
+
 }
